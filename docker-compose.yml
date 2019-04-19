@@ -15,4 +15,10 @@ services:
     volumes:
     - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
     command: nginx -g 'daemon off;'
-    
+  backend:
+    build: backend/
+    restart: always
+    volumes:
+      - ./backend/index.js:/usr/src/app/index.js
+      - ./backend/app:/usr/src/app/app/
+    command: 'node index.js'
