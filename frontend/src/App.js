@@ -11,7 +11,8 @@ class App extends Component {
       <div className="container">
         <TopBar></TopBar>
         <TitleScreen></TitleScreen>
-        <Card></Card>
+        <Card><div>Test</div></Card>
+        <Card><div>Test</div></Card>
       </div>
     );
   }
