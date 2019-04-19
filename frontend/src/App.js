@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-      <TopBar></TopBar>
+        <TopBar></TopBar>
         <Card></Card>
       </div>
     );
