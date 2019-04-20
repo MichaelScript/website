@@ -21,4 +21,6 @@ services:
     volumes:
       - ./backend/index.js:/usr/src/app/index.js
       - ./backend/app:/usr/src/app/app/
-    command: 'node index.js'
+    command: |
+            bash -c "
+            pm2 start index.js --watch --no-daemon;"
