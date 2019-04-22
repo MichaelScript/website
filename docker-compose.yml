@@ -19,17 +19,15 @@ services:
     build: backend/
     restart: always
     environment:
-      # - PGUSER=dbuser \
-      - PGHOST=http://postgres \
+      - PGUSER=postgre
+      - PGHOST=postgres
       # - PGPASSWORD=secretpassword \
-      - PGDATABASE=data \
-      - PGPORT=5432 \
+      - PGDATABASE=data
+      - PGPORT=5432
     volumes:
-      - ./backend/index.js:/usr/src/app/index.js
       - ./backend/app:/usr/src/app/app/
     command: |
-            bash -c "
-            pm2 start index.js --watch --no-daemon;"
+            bash -c "pm2 start app/index.js --watch --no-daemon;"
   postgres:
     build: postgres/
     command: /usr/lib/postgresql/9.3/bin/postgres -D /var/lib/postgresql/9.3/main -c config_file=/etc/postgresql/9.3/main/postgresql.conf
