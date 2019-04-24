@@ -5,7 +5,7 @@ class TopBar extends Component{
     render(){
         return (
             <div className="top-bar">
-                <Link exact to="/"><div className="logo"><div>M</div></div></Link>
+                <Link className="logo" exact to="/">M</Link>
                 <Link to="/login"><div className="login-button">Login</div></Link>
             </div>
         )

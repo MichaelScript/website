@@ -61,6 +61,7 @@ module.exports = function(app,db){
                 bcrypt.compare(user.password, foundUser.password, function(err, matched) {
                     if(matched){
                         console.log("Succesful login");
+                        res.send({"status":"Okay"});
                     } else{
                         console.log("Wrong password");
                     }
