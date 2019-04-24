@@ -38,8 +38,9 @@ function login(email,password){
             "password":password
         })
     }).then(function(response){
-        // response = response.json();
-        console.log(response);
+        response.json().then(function(data){
+            console.log(data);
+        })
     })
 }
 
