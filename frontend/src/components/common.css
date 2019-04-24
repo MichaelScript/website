@@ -56,10 +56,22 @@
     color:black;
     height:50px;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12),
     0 3px 1px -2px rgba(0, 0, 0, 0.2);
     margin-bottom:8px;
+    display:flex;
+    justify-content: space-between;
+    padding:4px;
+}
+
+
+.login-button{
+    margin:4px;
+    background-color:#424242;
+    font-family: 'Roboto Slab', serif;
+    color:white;
+    border-radius:3px;
+    padding:4px;
 }

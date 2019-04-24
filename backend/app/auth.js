@@ -30,7 +30,7 @@ module.exports = function(app,db){
             }
         })
     }
-    createUser(user);
+    // createUser(user);
     router.post('/createUser',createUser);
 
     let deleteUser = (req,res)=>{
@@ -68,8 +68,8 @@ module.exports = function(app,db){
             }
         })
     }
-    login(user);
-
+    // login(user);
+    router.post('/login',login);
 
     return router;
 }
