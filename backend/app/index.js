@@ -7,6 +7,15 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '200mb'}));
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
+/* JWT options */
+const PUBLIC_KEY  = fs.readFileSync(path.resolve(__dirname, 'keys/jwtRS256.key.pub'), 'utf8');
+const verifyOptions = {
+    expiresIn:  "30d",
+    algorithm:  ["RS256"]
+};
+
 var mysql = require('mysql');
 var db = mysql.createConnection({
   host     : 'mysql',
@@ -50,7 +59,18 @@ db.query(tokensTable,makeQuery);
 
 
 const routes = {
-    "auth": require(path.join(__dirname, "auth"))(app,db)
+    "auth": require(path.join(__dirname, "auth"))(app,db),
+    "blog": require(path.join(__dirname, "blog"))(app,db),
 }
-
+let sanitizer = function(req,res,next){
+    /* Sanitize input */
+    next()
+}
+app.use(sanitizer)
 app.use('/auth/',routes['auth']);
+/* Middleware to check for user token */
+let verifyToken = function(req,res,next){
+    /* Get jwt token from headers*/
+    next()
+}
+app.use(verifyToken);

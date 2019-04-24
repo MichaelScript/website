@@ -6,16 +6,10 @@ const jwt = require('jsonwebtoken');
 const SALT_ROUNDS = 12;
 const file_path = path.resolve(__dirname, 'private.key')
 const PRIVATE_KEY  = fs.readFileSync(path.resolve(__dirname, 'keys/jwtRS256.key'), 'utf8');
-const PUBLIC_KEY  = fs.readFileSync(path.resolve(__dirname, 'keys/jwtRS256.key.pub'), 'utf8');
 const signOptions = {
     expiresIn:  "30d",    // 30 days validity
     algorithm:  "RS256"    
 }
-const verifyOptions = {
-    expiresIn:  "30d",
-    algorithm:  ["RS256"]
-};
-
 module.exports = function(app,db){
     const router = express.Router();
      /* Test User and response */
@@ -85,13 +79,17 @@ module.exports = function(app,db){
                             "email":user.email
                         }, PRIVATE_KEY, signOptions);
                         console.log("Token is: ", token);
-                        /* Updating user's session token */
+                        /* Adding session token to the tokens table */
                         db.query(`
-                            UPDATE users SET
-                            token = '${token}'
-                            WHERE id = '${foundUser.id}'
-                        `,()=>{
-                            res.send({"token":token});
+                            INSERT INTO tokens (token,user_id)
+                            VALUES ('${token}',${foundUser.id})
+                        `,(err,results,fields)=>{
+                            if(!err){
+                                res.send({"token":token});
+                            } else{
+                                console.error(err);
+                                res.send({"error":"An error occured"});
+                            }
                         })
                     } else{
                         console.log("Wrong password");
