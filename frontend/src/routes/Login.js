@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../components/common.css';
+import { connect } from 'react-redux';
+
 class Login extends Component{
     constructor(props) {
         super(props);
@@ -45,6 +47,10 @@ class Login extends Component{
     handleSubmit(event) {
         this.login(this.state.email,this.state.password,(token)=>{
             console.log(token);
+            this.props.dispatch({
+                type:"UPDATE_TOKEN",
+                token: token.token
+            })
         });
         event.preventDefault();
     }
@@ -52,6 +58,7 @@ class Login extends Component{
         return (
             <div className="login-container">
                <div className="login-box shadow">
+                    Token: {this.props.token}
                     <div>
                         <label htmlFor="email">Email: </label>
                         <input id="email" value={this.state.email} onChange={this.handleEmail}></input>
@@ -67,30 +74,8 @@ class Login extends Component{
     }   
 }
 
-function login(email,password){
-    let url = '/api/auth/login'
-    // Default options are marked with *
-    fetch(url, {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrer: "no-referrer",
-        body: JSON.stringify({
-            "email":email,
-            "password":password
-        })
-    }).then(function(response){
-        response.json().then(function(data){
-            console.log(data);
-        })
-    })
+function mapStateToProps(state) {
+    return state;
 }
 
-// login("me@michaelgreen.net","password");
-
-export default Login;
+export default connect(mapStateToProps)(Login);
