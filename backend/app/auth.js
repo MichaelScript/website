@@ -32,7 +32,7 @@ module.exports = function(app,db){
             if(!err){
                 db.query(`
                 INSERT INTO users (email,password)
-                VALUES ('${user.email}','${hash}')`,
+                VALUES (${db.escape(user.email)},${db.escape(hash)})`,
                 (err,results,fields)=>{
                     if(!err){
                         console.log("results: ", results);
@@ -49,7 +49,7 @@ module.exports = function(app,db){
 
     let deleteUser = (req,res)=>{
         let user = req.body;
-        db.query(`DELETE FROM users WHERE email = '${user.email}'`,
+        db.query(`DELETE FROM users WHERE email = ${db.escape(user.email)}`,
         function(err,results,fields){
             if(!err){
                 console.log('Results: ', results);
@@ -63,11 +63,12 @@ module.exports = function(app,db){
     let login = (req,res)=>{
         let user = req.body;
         db.query(`
-            SELECT * FROM users WHERE email = '${user.email}'
+            SELECT * FROM users WHERE email = ${db.escape(user.email)}
         `,
         function(err,results,fields){
+
             console.log("results: ",results);
-            if(results.length > 0){
+            if(!err && results && results.length > 0){
                 let foundUser = results[0];
                 console.log('user password is: ', user.password);
                 console.log('found user password is: ', foundUser.password);
@@ -82,7 +83,7 @@ module.exports = function(app,db){
                         /* Adding session token to the tokens table */
                         db.query(`
                             INSERT INTO tokens (token,user_id)
-                            VALUES ('${token}',${foundUser.id})
+                            VALUES (${db.escape(token)},${db.escape(foundUser.id)})
                         `,(err,results,fields)=>{
                             if(!err){
                                 res.send({"token":token});
@@ -95,6 +96,9 @@ module.exports = function(app,db){
                         console.log("Wrong password");
                     }
                 });
+            } else{
+                console.error(err);
+                res.send({"error":"An error occured"});
             }
         })
     }
