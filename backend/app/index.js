@@ -63,7 +63,7 @@ const routes = {
     "blog": require(path.join(__dirname, "blog"))(app,db),
 }
 let sanitizer = function(req,res,next){
-    /* Sanitize input */
+    /* Custom input sanitization */
     next()
 }
 app.use(sanitizer)
@@ -71,6 +71,8 @@ app.use('/auth/',routes['auth']);
 /* Middleware to check for user token */
 let verifyToken = function(req,res,next){
     /* Get jwt token from headers*/
+    let auth = req.Authorization;
+    console.log("Authorization Header: ", auth);
     next()
 }
 app.use(verifyToken);

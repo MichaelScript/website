@@ -102,7 +102,7 @@ module.exports = function(app,db){
             }
         })
     }
-    login(user,test_res);
+    // login(user,test_res);
     router.post('/login',login);
 
     return router;
