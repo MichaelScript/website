@@ -8,32 +8,41 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '200mb'}));
 var mysql = require('mysql');
-var connection = mysql.createConnection({
+var db = mysql.createConnection({
   host     : 'mysql',
   user     : 'user',
   password : 'password',
   database : 'db'
 });
 
-connection.connect();
+db.connect();
+/* Creating all the tables we need */
+let usersTable = `CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+)  ENGINE=INNODB;`
 
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
-});
+let makeQuery = function(err,results,fields){
+    if(err){
+        console.log("Error: ", err);
+    } else{
+        console.log("Results: ", results);
+        console.log("Fields: ",fields);
+    }
+}
 
-connection.end();
+db.query(usersTable,makeQuery)
 
-// const res = await client.query('SELECT $1::text as message', ['Hello world!'])
-// console.log(res.rows[0].message) // Hello world!
-// await client.end()
-// app.post('/hello',function(req,res){
-//     console.log("hello");
-// })
-// const routes = {
-//     "auth": require(path.join(__dirname, "auth"))(app)
-// }
+// db.query("SHOW tables",makeQuery);
+
+// connection.end();
 
 
-// app.use('/auth/',routes['auth']);
-// console.log("Hello world");
+
+const routes = {
+    "auth": require(path.join(__dirname, "auth"))(app,db)
+}
+
+app.use('/auth/',routes['auth']);
