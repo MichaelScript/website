@@ -16,14 +16,7 @@ var db = mysql.createConnection({
 });
 
 db.connect();
-/* Creating all the tables we need */
-let usersTable = `CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
-)  ENGINE=INNODB;`
-
+/* Helper function for creating tables */
 let makeQuery = function(err,results,fields){
     if(err){
         console.log("Error: ", err);
@@ -32,8 +25,23 @@ let makeQuery = function(err,results,fields){
         console.log("Fields: ",fields);
     }
 }
+/* Creating all the tables we need */
+let usersTable = `CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+)  ENGINE=INNODB;`
 
-db.query(usersTable,makeQuery)
+let tokensTable = `CREATE TABLE IF NOT EXISTS tokens (
+    id INT AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    token VARCHAR(1000),
+    PRIMARY KEY (id)
+    )`
+
+db.query(usersTable,makeQuery);
+db.query(tokensTable,makeQuery);
 
 // db.query("SHOW tables",makeQuery);
 

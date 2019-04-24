@@ -1,13 +1,33 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const fs = require('fs');
+const path = require('path');
+const jwt = require('jsonwebtoken');
 const SALT_ROUNDS = 12;
+const file_path = path.resolve(__dirname, 'private.key')
+const PRIVATE_KEY  = fs.readFileSync(path.resolve(__dirname, 'keys/jwtRS256.key'), 'utf8');
+const PUBLIC_KEY  = fs.readFileSync(path.resolve(__dirname, 'keys/jwtRS256.key.pub'), 'utf8');
+const signOptions = {
+    expiresIn:  "30d",    // 30 days validity
+    algorithm:  "RS256"    
+}
+const verifyOptions = {
+    expiresIn:  "30d",
+    algorithm:  ["RS256"]
+};
+
 module.exports = function(app,db){
     const router = express.Router();
-     /* Test User */
+     /* Test User and response */
      const user = {
         "body":{
             "email":"me@michaelgreen.net",
             "password":"password"
+        }
+    }
+    const test_res = {
+        "send":function(data){
+            console.log("Sending data to client: ", data);
         }
     }
 
@@ -61,7 +81,18 @@ module.exports = function(app,db){
                 bcrypt.compare(user.password, foundUser.password, function(err, matched) {
                     if(matched){
                         console.log("Succesful login");
-                        res.send({"status":"Okay"});
+                        let token = jwt.sign({
+                            "email":user.email
+                        }, PRIVATE_KEY, signOptions);
+                        console.log("Token is: ", token);
+                        /* Updating user's session token */
+                        db.query(`
+                            UPDATE users SET
+                            token = '${token}'
+                            WHERE id = '${foundUser.id}'
+                        `,()=>{
+                            res.send({"token":token});
+                        })
                     } else{
                         console.log("Wrong password");
                     }
@@ -69,7 +100,7 @@ module.exports = function(app,db){
             }
         })
     }
-    // login(user);
+    login(user,test_res);
     router.post('/login',login);
 
     return router;
