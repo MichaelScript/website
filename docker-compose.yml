@@ -1,12 +1,14 @@
 version: '3'
 services:
   frontend:
+    image: gcr.io/michaelgreen/frontend
     build: frontend/
     volumes:
     - ./frontend/src:/usr/src/app/src
     - ./frontend/public:/usr/src/app/public
     command: yarn start
   nginx:
+    image: gcr.io/michaelgreen/nginx
     build: nginx/
     restart: always
     ports:
@@ -16,6 +18,7 @@ services:
     - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
     command: nginx -g 'daemon off;'
   backend:
+    image: gcr.io/michaelgreen/backend
     build: backend/
     restart: always
     depends_on:
@@ -25,7 +28,7 @@ services:
     command: |
             bash -c "pm2 start app/index.js --watch --no-daemon;"
   mysql:
-    image: mysql:5.7
+    image: gcr.io/michaelgreen/mysql
     restart: always
     environment:
       MYSQL_DATABASE: 'db'
