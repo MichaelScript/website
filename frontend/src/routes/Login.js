@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../components/common.css';
 import { connect } from 'react-redux';
+// import { post } from '../util.js';
 
 class Login extends Component{
     constructor(props) {
@@ -46,11 +47,7 @@ class Login extends Component{
 
     handleSubmit(event) {
         this.login(this.state.email,this.state.password,(token)=>{
-            console.log(token);
-            this.props.dispatch({
-                type:"UPDATE_TOKEN",
-                token: token.token
-            })
+            window.localStorage.setItem("token",token);
         });
         event.preventDefault();
     }
@@ -58,7 +55,6 @@ class Login extends Component{
         return (
             <div className="login-container">
                <div className="login-box shadow">
-                    Token: {this.props.token}
                     <div>
                         <label htmlFor="email">Email: </label>
                         <input id="email" value={this.state.email} onChange={this.handleEmail}></input>
