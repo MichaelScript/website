@@ -1,0 +1,7 @@
+
+
+letsencrypt:
+  email: "me@michaelgreen.net"
+
+ingress:
+  hostname: "michaelgreen.net"
