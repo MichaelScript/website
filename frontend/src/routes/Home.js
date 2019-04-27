@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-
+import TitleScreen from '../components/TitleScreen';
 class Home extends Component{
     render(){
         return (
             <div>
-                <div>
-                    <p>
-                    Hello World, this site is currently under construction.
-                    </p>
-                    <p>Tech Stack: React, Redux, Node.JS/Express, MySQL, NGINX, Docker, Kubernetes</p>
-                </div>
+                <TitleScreen></TitleScreen>
             </div>)
     }
 }
