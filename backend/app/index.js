@@ -73,7 +73,7 @@ launch = function(){
             app.use('/auth/',routes['auth']);
             /* Middleware to check for user token */
             let verifyToken = function(req,res,next){
-                /* Get jwt token from headers*/
+                /* Get jwt token from headers */
                 let auth = req.Authorization;
                 console.log("Authorization Header: ", auth);
                 next()

@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-rosey
+  name: ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
     # Need to write some sort of helm templating if statemnt
@@ -12,10 +12,12 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     # kubernetes.io/ingress.allow-http: "false"
-    nginx.org/websocket-services: "web-rosey"
+    nginx.org/websocket-services: "frontend"
+    kubernetes.io/ingress.global-static-ip-name: michaelgreen-west
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
 spec:
-  terminationGracePeriodSeconds: 11
+  # loadBalancerIP: 34.96.70.223
+  terminationGracePeriodSeconds: 10
   # Default backend should be some sort of 404 page or error page
   tls:
   - secretName: ingress-cert
