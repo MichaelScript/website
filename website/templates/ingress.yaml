@@ -9,15 +9,13 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     # This should fix the above ^
     # certmanager.k8s.io/acme-http01-edit-in-place: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     # kubernetes.io/ingress.allow-http: "false"
     nginx.org/websocket-services: "frontend"
-    kubernetes.io/ingress.global-static-ip-name: michaelgreen-west
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
 spec:
-  # loadBalancerIP: 34.96.70.223
-  terminationGracePeriodSeconds: 10
+  terminationGracePeriodSeconds: 9
   # Default backend should be some sort of 404 page or error page
   tls:
   - secretName: ingress-cert
