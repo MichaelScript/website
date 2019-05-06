@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../components/common.css';
+import '../css/common.css';
 import { connect } from 'react-redux';
 // import { post } from '../util.js';
 

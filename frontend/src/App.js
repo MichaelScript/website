@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './css/common.css';
 import Login from './routes/Login.js'
 import Home from './routes/Home.js'
 import TopBar from './components/TopBar.js';
@@ -34,7 +35,7 @@ class App extends Component {
         <div>
           <Router>
             <TopBar></TopBar>
-            <div>
+            <div className="container">
               <Route exact path="/" component={Home} />
               <Route path="/login" component={Login} />
             </div>

@@ -1,35 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingress
+  name: website
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    # Need to write some sort of helm templating if statemnt
-    # to disable this if lets encrypt is making a cert
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    # This should fix the above ^
-    # certmanager.k8s.io/acme-http01-edit-in-place: "true"
-    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    # kubernetes.io/ingress.allow-http: "false"
-    nginx.org/websocket-services: "frontend"
-    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    kubernetes.io/ingress.global-static-ip-name: website
+  labels:
+    app: hello
 spec:
-  terminationGracePeriodSeconds: 9
-  # Default backend should be some sort of 404 page or error page
-  tls:
-  - secretName: ingress-cert
-    hosts:
-    - michaelgreen.net
-  rules:
-  - host: {{ .Values.ingress.hostname }}
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: frontend
-          servicePort: 5000
-      - path: /api/
-        backend:
-          serviceName: backend
-          servicePort: 3000
+  backend:
+    serviceName: frontend
+    servicePort: 3000

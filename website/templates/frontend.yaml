@@ -16,6 +16,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: frontend
+  service: frontend
 spec:
   replicas: 1
   strategy: {}
