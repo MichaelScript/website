@@ -1,5 +1,6 @@
-export const post = (data,callback)=>{
+export const post = (url,data,callback)=>{
     /* Get token from localStorage*/
+    alert(url);
     let token = window.localStorage.getItem("token");
     if(token){
         fetch(url, {
@@ -13,14 +14,10 @@ export const post = (data,callback)=>{
             },
             redirect: "follow",
             referrer: "no-referrer",
-            body: JSON.stringify({
-                "email":email,
-                "password":password
-            })
+            body: JSON.stringify(data)
         }).then(function(response){
-            response.json().then(function(data){
-                callback(data);
-            })
+            alert("calling with token");
+            response.json().then(callback);
         })
     } else{
         fetch(url, {
@@ -33,14 +30,9 @@ export const post = (data,callback)=>{
             },
             redirect: "follow",
             referrer: "no-referrer",
-            body: JSON.stringify({
-                "email":email,
-                "password":password
-            })
+            body: JSON.stringify(data)
         }).then(function(response){
-            response.json().then(function(data){
-                callback(data);
-            })
+            response.json().then(callback);
         })
     }
 }

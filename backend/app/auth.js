@@ -94,6 +94,7 @@ module.exports = function(app,db){
                         })
                     } else{
                         console.log("Wrong password");
+                        res.send({"error":"Wrong username or password"})
                     }
                 });
             } else{

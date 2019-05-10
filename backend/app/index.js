@@ -59,7 +59,11 @@ launch = function(){
 
             // connection.end();
 
-
+            // let debug = function(req,res,next){
+            //     console.log("Req is: ", req);
+            //     next()
+            // }
+            // app.use(debug)
 
             const routes = {
                 "auth": require(path.join(__dirname, "auth"))(app,db),

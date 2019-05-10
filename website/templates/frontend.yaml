@@ -26,7 +26,7 @@ spec:
       labels:
         service: frontend
     spec:
-      terminationGracePeriodSeconds: 9
+      terminationGracePeriodSeconds: 10
       containers:
       - args:
         - "yarn"

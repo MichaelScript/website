@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/common.css';
 import { connect } from 'react-redux';
-// import { post } from '../util.js';
+import { post } from '../util.js';
 
 class Login extends Component{
     constructor(props) {
@@ -16,24 +16,11 @@ class Login extends Component{
     login(email,password,callback){
         let url = '/api/auth/login'
         // Default options are marked with *
-        fetch(url, {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            redirect: "follow",
-            referrer: "no-referrer",
-            body: JSON.stringify({
-                "email":email,
-                "password":password
-            })
-        }).then(function(response){
-            response.json().then(function(data){
-                callback(data)
-            })
+        post(url,{
+            email:email,
+            password:password
+        },(data)=>{
+            window.localStorage.setItem("token",data);
         })
     }
     
