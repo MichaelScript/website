@@ -20,7 +20,14 @@ class Login extends Component{
             email:email,
             password:password
         },(data)=>{
-            window.localStorage.setItem("token",data);
+            if(data["token"]){
+                window.localStorage.setItem("token",data);
+                this.props.dispatch({
+                    type:"LOGIN"
+                }) 
+            } else{
+                alert("Error logging in");
+            }
         })
     }
     

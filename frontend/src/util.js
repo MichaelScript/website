@@ -1,6 +1,5 @@
 export const post = (url,data,callback)=>{
     /* Get token from localStorage*/
-    alert(url);
     let token = window.localStorage.getItem("token");
     if(token){
         fetch(url, {
@@ -16,7 +15,6 @@ export const post = (url,data,callback)=>{
             referrer: "no-referrer",
             body: JSON.stringify(data)
         }).then(function(response){
-            alert("calling with token");
             response.json().then(callback);
         })
     } else{
