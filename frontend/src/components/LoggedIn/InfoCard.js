@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../css/common.css';
+import '../../css/common.css';
 
 class InfoCard extends Component{
     render(){
