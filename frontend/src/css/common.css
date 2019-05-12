@@ -20,6 +20,7 @@
     padding:4px;
     font-size:20px;
     border-radius:4px;
+    cursor:pointer;
 }
 .login-button{
     margin:4px;
@@ -27,6 +28,7 @@
     text-transform: uppercase;
     text-decoration: none;
     padding:4px;
+    cursor:pointer;
 }
 
 .top-bar{

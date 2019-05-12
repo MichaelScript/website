@@ -24,7 +24,7 @@ class Login extends Component{
                 window.localStorage.setItem("token",data);
                 this.props.dispatch({
                     type:"LOGIN"
-                }) 
+                })
             } else{
                 alert("Error logging in");
             }

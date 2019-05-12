@@ -17,6 +17,11 @@ export const reducer = (state=initialState, action)=>{
         return Object.assign({},state,{
             "loggedIn":true
         })
+      case 'LOGOUT':
+        console.log('Logging out');
+        return Object.assign({},state,{
+          "loggedIn":false
+        })
       default:
         return state
     }

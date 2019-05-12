@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-
+import TopBar from './LoggedOut/TopBar.js'
 class LoggedIn extends Component{
     render(){
         return (<div>
-            Logged In
+            <TopBar></TopBar>
         </div>)
     }
 }
