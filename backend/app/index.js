@@ -51,10 +51,18 @@ launch = function(){
                 token VARCHAR(1000),
                 PRIMARY KEY (id)
                 )`
+            let blogPostsTable = `CREATE TABLE IF NOT EXISTS posts(
+                id INT AUTO_INCREMENT,
+                user_id INT NOT NULL,
+                content LONGTEXT,
+                title VARCHAR(1000),
+                date DATETIME NOT NULL,
+                PRIMARY KEY (id)
+            )`
 
             db.query(usersTable,makeQuery);
             db.query(tokensTable,makeQuery);
-
+            db.query(blogPostsTable,makeQuery);
             // db.query("SHOW tables",makeQuery);
 
             // connection.end();
@@ -80,16 +88,22 @@ launch = function(){
                 /* Get jwt token from headers and decode it */
                 let auth = req.headers.authorization;
                 console.log("Authorization Header: ", auth);
-                jwt.verify(auth,PUBLIC_KEY,function(err,decoded){
-                    if(!err){
-                        console.log("Decoded:", decoded);
-                        next()
-                    } else{
-                        console.log("Error decoding token:", err);
-                        res.status(401)
-                        res.send({"Error":"Unauthorized"})
-                    }
-                })
+                if(auth){
+                    jwt.verify(auth,PUBLIC_KEY,function(err,decoded){
+                        if(!err){
+                            console.log("Decoded:", decoded);
+                            next()
+                        } else{
+                            console.log("Error decoding token:", err);
+                            res.status(401)
+                            res.send({"Error":"Unauthorized"})
+                        }
+                    })
+                } else{
+                    console.log("Unauthorized");
+                    res.status(401);
+                    res.send({"Error":"Unauthorized"})
+                }
             }
             app.use(verifyToken);
             app.use('/blog/',routes['blog']);
