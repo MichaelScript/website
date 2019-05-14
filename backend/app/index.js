@@ -77,10 +77,19 @@ launch = function(){
             app.use('/auth/',routes['auth']);
             /* Middleware to check for user token */
             let verifyToken = function(req,res,next){
-                /* Get jwt token from headers */
+                /* Get jwt token from headers and decode it */
                 let auth = req.headers.authorization;
                 console.log("Authorization Header: ", auth);
-                next()
+                jwt.verify(auth,PUBLIC_KEY,function(err,decoded){
+                    if(!err){
+                        console.log("Decoded:", decoded);
+                        next()
+                    } else{
+                        console.log("Error decoding token:", err);
+                        res.status(401)
+                        res.send({"Error":"Unauthorized"})
+                    }
+                })
             }
             app.use(verifyToken);
             app.use('/blog/',routes['blog']);
