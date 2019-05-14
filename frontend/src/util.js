@@ -1,6 +1,7 @@
 export const post = (url,data,callback)=>{
     /* Get token from localStorage*/
     let token = window.localStorage.getItem("token");
+    alert(JSON.stringify(token));
     if(token){
         fetch(url, {
             method: "POST",

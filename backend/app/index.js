@@ -78,7 +78,7 @@ launch = function(){
             /* Middleware to check for user token */
             let verifyToken = function(req,res,next){
                 /* Get jwt token from headers */
-                let auth = req.Authorization;
+                let auth = req.headers.authorization;
                 console.log("Authorization Header: ", auth);
                 next()
             }

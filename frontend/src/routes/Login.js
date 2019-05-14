@@ -21,7 +21,7 @@ class Login extends Component{
             password:password
         },(data)=>{
             if(data["token"]){
-                window.localStorage.setItem("token",data);
+                window.localStorage.setItem("token",data["token"]);
                 this.props.dispatch({
                     type:"LOGIN"
                 })
