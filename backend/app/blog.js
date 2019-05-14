@@ -5,6 +5,7 @@ module.exports = function(app,db){
 
     /* Create blog post */
     router.post('/createPost',function(req,res){
+        console.log(req.body);
         res.send({"status":"Success"});
     })
 

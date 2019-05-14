@@ -83,6 +83,7 @@ launch = function(){
                 next()
             }
             app.use(verifyToken);
+            app.use('/blog/',routes['blog']);
         } else{
             /* Try to connect again after 5 seconds */
             setTimeout(launch,5000);
