@@ -25,6 +25,7 @@ class Login extends Component{
                 this.props.dispatch({
                     type:"LOGIN"
                 })
+                window.location.href = "/";
             } else{
                 alert("Error logging in");
             }

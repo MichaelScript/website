@@ -1,15 +1,25 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 class TopBar extends Component{
+    constructor(props){
+        super(props);
+        this.logout = this.logout.bind(this);
+    }
+    logout(){
+        window.localStorage.removeItem('token');
+        this.props.dispatch({
+            type:"LOGOUT"
+        })
+    }
     render(){
-        return (
-            <div className="top-bar shadow">
-                <Link className="logo" exact to="/">MG</Link>
-                <Link to="/login"><div className="login-button">Login</div></Link>
-            </div>
-        )
+        return <div className="top-bar">
+            <div onClick={this.logout} className="login-button">Logout</div>
+        </div>
     }
 }
 
-export default TopBar;
+function mapStateToProps(state) {
+    return state;
+}
+
+export default connect(mapStateToProps)(TopBar);
