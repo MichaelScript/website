@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { post } from '../../util.js';
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 
 class PostEditor extends Component {
     constructor(props){
@@ -12,8 +14,8 @@ class PostEditor extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTitle = this.handleTitle.bind(this);
     }
-    handleContent(event){
-        this.setState({content: event.target.value});
+    handleContent(value){
+        this.setState({content: value});
     }
 
     handleTitle(event){
@@ -22,6 +24,7 @@ class PostEditor extends Component {
 
     handleSubmit(event){
         alert(this.state.content);
+
         post("/api/blog/createPost",{
             "content":this.state.content,
             "title":this.state.title
@@ -37,7 +40,9 @@ class PostEditor extends Component {
                 <label for="title">Title:</label>
                 <input id="title" value={this.state.title} onChange={this.handleTitle}></input>
                 </div>
-                <textarea value={this.state.content} onChange={this.handleContent} className="postInput shadow"></textarea>
+                {/* <textarea value={this.state.content} onChange={this.handleContent} className="postInput shadow"></textarea> */}
+                <ReactQuill value={this.state.content}
+                  onChange={this.handleContent} />
                 <button onClick={this.handleSubmit} className="post-button shadow">Post</button>
             </form>
         </div>

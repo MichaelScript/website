@@ -17,7 +17,7 @@ class Post extends Component{
     render(){
         return <div className="blog-post shadow">
             <div className="blog-title">{this.props.title}</div>
-            <div className="blog-content">{this.props.content}</div>
+            <div className="blog-content" dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
             <div className="blog-menu">
                 <button className="blog-button">Edit</button>
                 <button onClick={this.delete} className="blog-button">Delete</button>
