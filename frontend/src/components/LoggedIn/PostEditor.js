@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { post } from '../../util.js';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
-
+import {connect} from 'react-redux';
 class PostEditor extends Component {
     constructor(props){
         super(props);
@@ -23,13 +23,14 @@ class PostEditor extends Component {
     }
 
     handleSubmit(event){
-        alert(this.state.content);
-
         post("/api/blog/createPost",{
             "content":this.state.content,
             "title":this.state.title
         },(response)=>{
             console.log("Response is:", response);
+            this.props.dispatch({
+                "type":"HIDE_EDITOR"
+            })
         })
         event.preventDefault();
     }
@@ -37,10 +38,8 @@ class PostEditor extends Component {
         return <div>
             <form className="post-editor-container">
                 <div>
-                <label htmlFor="title">Title:</label>
-                <input id="title" value={this.state.title} onChange={this.handleTitle}></input>
+                <input placeholder="Title Goes Here" id="title" className="post-title" value={this.state.title} onChange={this.handleTitle}></input>
                 </div>
-                {/* <textarea value={this.state.content} onChange={this.handleContent} className="postInput shadow"></textarea> */}
                 <div className="editor-container">
                     <ReactQuill className="editor" value={this.state.content}
                     onChange={this.handleContent} />
@@ -51,4 +50,10 @@ class PostEditor extends Component {
     }
 }
 
-export default PostEditor;
+function mapStateToProps(state){
+    return {
+        editorVisible:state.editorVisible
+    }
+}
+
+export default connect(mapStateToProps)(PostEditor);
