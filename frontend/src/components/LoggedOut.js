@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Login from '../routes/Login.js'
 import Home from '../routes/Home.js'
 import TopBar from './LoggedOut/TopBarOut.js';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class LoggedOut extends Component{
     render(){

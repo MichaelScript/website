@@ -1,13 +1,11 @@
-let initialState;
+let initialState = {
+  "editorVisible":false
+};
 let token = window.localStorage.getItem("token");
 if(token){
-  initialState = {
-      loggedIn: true
-  }
+  initialState["loggedIn"] = true;
 } else {
-  initialState = {
-    loggedIn: false
-  }
+  initialState["loggedIn"] = false;
 }
 export const reducer = (state=initialState, action)=>{
     console.log('reducer', state, action);
@@ -22,8 +20,17 @@ export const reducer = (state=initialState, action)=>{
         return Object.assign({},state,{
           "loggedIn":false
         })
+      case 'SHOW_EDITOR':
+        console.log('Showing editor');
+        return Object.assign({},state,{
+          "editorVisible":true
+        })
+      case 'HIDE_EDITOR':
+        console.log("hiding editor")
+        return Object.assign({},state,{
+          "editorVisible":false
+        })
       default:
         return state
     }
-    return state;
   }

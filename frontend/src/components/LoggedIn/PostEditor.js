@@ -37,13 +37,15 @@ class PostEditor extends Component {
         return <div>
             <form className="post-editor-container">
                 <div>
-                <label for="title">Title:</label>
+                <label htmlFor="title">Title:</label>
                 <input id="title" value={this.state.title} onChange={this.handleTitle}></input>
                 </div>
                 {/* <textarea value={this.state.content} onChange={this.handleContent} className="postInput shadow"></textarea> */}
-                <ReactQuill value={this.state.content}
-                  onChange={this.handleContent} />
-                <button onClick={this.handleSubmit} className="post-button shadow">Post</button>
+                <div className="editor-container">
+                    <ReactQuill className="editor" value={this.state.content}
+                    onChange={this.handleContent} />
+                    <button onClick={this.handleSubmit} className="post-button shadow">Post</button>
+                </div>
             </form>
         </div>
     }

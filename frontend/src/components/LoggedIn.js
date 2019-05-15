@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import TopBar from './LoggedIn/TopBar.js'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Dashbaord from '../routes/Dashboard.js';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Dashboard from '../routes/Dashboard.js';
 class LoggedIn extends Component{
     render(){
