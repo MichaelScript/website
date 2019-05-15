@@ -56,7 +56,8 @@ launch = function(){
                 user_id INT NOT NULL,
                 content LONGTEXT,
                 title VARCHAR(1000),
-                date DATETIME NOT NULL,
+                creation_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                modification_time DATETIME ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (id)
             )`
 
@@ -74,14 +75,16 @@ launch = function(){
             // app.use(debug)
 
             const routes = {
-                "auth": require(path.join(__dirname, "auth"))(app,db),
-                "blog": require(path.join(__dirname, "blog"))(app,db),
+                "auth": require(path.join(__dirname, "./public/auth"))(app,db),
+                "data": require(path.join(__dirname, "./public/data"))(app,db),
+                "blog": require(path.join(__dirname, "./private/blog"))(app,db),
             }
             let sanitizer = function(req,res,next){
                 /* Custom input sanitization */
                 next()
             }
-            app.use(sanitizer)
+            app.use(sanitizer);
+            app.use("/data/",routes["data"]);
             app.use('/auth/',routes['auth']);
             /* Middleware to check for user token */
             let verifyToken = function(req,res,next){
@@ -92,6 +95,7 @@ launch = function(){
                     jwt.verify(auth,PUBLIC_KEY,function(err,decoded){
                         if(!err){
                             console.log("Decoded:", decoded);
+                            req.auth = decoded;
                             next()
                         } else{
                             console.log("Error decoding token:", err);

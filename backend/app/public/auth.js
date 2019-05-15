@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const SALT_ROUNDS = 12;
-const file_path = path.resolve(__dirname, 'private.key')
-const PRIVATE_KEY  = fs.readFileSync(path.resolve(__dirname, 'keys/jwtRS256.key'), 'utf8');
+const file_path = path.resolve(__dirname, '../private.key')
+const PRIVATE_KEY  = fs.readFileSync(path.resolve(__dirname, '../keys/jwtRS256.key'), 'utf8');
 const signOptions = {
     expiresIn:  "30d",    // 30 days validity
     algorithm:  "RS256"    
@@ -77,7 +77,8 @@ module.exports = function(app,db){
                     if(matched){
                         console.log("Succesful login");
                         let token = jwt.sign({
-                            "email":user.email
+                            "email":db.escape(user.email),
+                            "user_id":db.escape(foundUser.id)
                         }, PRIVATE_KEY, signOptions);
                         console.log("Token is: ", token);
                         /* Adding session token to the tokens table */

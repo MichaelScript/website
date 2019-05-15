@@ -191,3 +191,17 @@ background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, F
     color:white;
     padding:16px;
 }
+
+.blog-post{
+    width:400px;
+    max-width:99vw;
+    background:white;
+    border-radius:4px;
+    padding:8px;
+    margin:8px;
+}
+
+.blog-title{
+    font-size:1.5em;
+    font-weight:700;
+}
