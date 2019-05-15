@@ -32,6 +32,7 @@ class PostEditor extends Component {
             this.props.dispatch({
                 "type":"HIDE_EDITOR"
             })
+            postContent['id'] = response.id;
             this.props.dispatch({
                 "type":"ADD_POSTS",
                 "posts":[postContent]

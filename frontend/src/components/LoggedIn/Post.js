@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { post } from '../../util';
+import {connect} from 'react-redux';
 
 class Post extends Component{
     constructor(props){
@@ -10,7 +11,10 @@ class Post extends Component{
     delete(){
         let id = this.props.id;
         post('/api/blog/deletePost',{"id":id},(data)=>{
-            alert(data);
+            this.props.dispatch({
+                type:'DELETE_POST',
+                id:id
+            })
         })
     }
 
@@ -26,4 +30,10 @@ class Post extends Component{
     }
 }
 
-export default Post;
+function mapStateToProps(state){
+    return {
+        posts: state.posts.posts
+    }
+}
+
+export default connect(mapStateToProps)(Post);

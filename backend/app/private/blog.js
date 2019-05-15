@@ -13,7 +13,9 @@ module.exports = function(app,db){
         `
         db.query(query,function(err,results,fields){
             if(!err){
-                res.send({"Success":true});
+                console.log(results);
+                console.log(fields);
+                res.send({"success":true, "id":results.insertId});
             } else{
                 console.log("Error while creating blog post: ", err);
                 res.send({"Error":"Error creating blog post"});
