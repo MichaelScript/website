@@ -9,7 +9,7 @@ class BlogPosts extends Component{
         }
     }
     componentDidMount(){
-        post('/api/data/getPosts',{},(data)=>{
+        post('/api/data/getPosts',{"limit":5},(data)=>{
             this.setState({
                 "posts":data["posts"]
             })
@@ -17,7 +17,7 @@ class BlogPosts extends Component{
     }
     render(){
         let posts = this.state.posts.map((item,index)=>{
-            return <Post title={item.title} content={item.content}></Post>
+            return <Post id={item.id} title={item.title} content={item.content}></Post>
         });
         return <div>{posts}</div>
     }

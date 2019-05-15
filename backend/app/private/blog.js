@@ -4,8 +4,7 @@ module.exports = function(app,db){
     const router = express.Router();
 
     /* Create blog post */
-    router.post('/createPost',function(req,res){
-        console.log(req.body);
+    let createPost = function(req,res){
         let title = db.escape(req.body.title);
         let content = db.escape(req.body.content);
         let query = `
@@ -20,7 +19,23 @@ module.exports = function(app,db){
                 res.send({"Error":"Error creating blog post"});
             }
         });
-    })
+    }
+    router.post('/createPost',createPost);
+
+    let deletePost = function(req,res){
+        let id = db.escape(req.body.id);
+        let query = `DELETE FROM posts WHERE id=${id}`
+        db.query(query,function(err,results,fields){
+            if(!err){
+                res.send({"success":true})
+            } else{
+                res.send({"success":false,"error":"Error Deleting post"})
+            }
+        })
+    }
+    router.post('/deletePost',deletePost);
+
+
 
     return router;
 }

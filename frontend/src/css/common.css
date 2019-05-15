@@ -205,3 +205,19 @@ background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, F
     font-size:1.5em;
     font-weight:700;
 }
+
+.blog-menu{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    height:40px;
+    border-top:1px solid #ddd;
+}
+
+.blog-button{
+    margin-left:4px;
+    padding:4px;
+    background:rgb(53,53,53);
+    color:white;
+    border-radius:4px;
+}
