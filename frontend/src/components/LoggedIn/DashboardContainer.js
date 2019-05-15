@@ -41,7 +41,7 @@ class DashboardContainer extends Component{
 
 function mapStateToProps(state){
     return {
-        editorVisible:state.editorVisible
+        editorVisible:state.editor.editorVisible
     };
 }
 

@@ -23,13 +23,18 @@ class PostEditor extends Component {
     }
 
     handleSubmit(event){
-        post("/api/blog/createPost",{
+        let postContent = {
             "content":this.state.content,
             "title":this.state.title
-        },(response)=>{
+        }
+        post("/api/blog/createPost",postContent,(response)=>{
             console.log("Response is:", response);
             this.props.dispatch({
                 "type":"HIDE_EDITOR"
+            })
+            this.props.dispatch({
+                "type":"ADD_POSTS",
+                "posts":[postContent]
             })
         })
         event.preventDefault();
@@ -52,7 +57,7 @@ class PostEditor extends Component {
 
 function mapStateToProps(state){
     return {
-        editorVisible:state.editorVisible
+        editorVisible:state.editor.editorVisible
     }
 }
 
