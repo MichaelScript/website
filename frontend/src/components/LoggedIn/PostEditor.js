@@ -6,26 +6,33 @@ import {connect} from 'react-redux';
 class PostEditor extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            "content":"",
-            "title":""
-        }
         this.handleContent = this.handleContent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTitle = this.handleTitle.bind(this);
     }
+
+    componentDidMount(){
+    }
     handleContent(value){
-        this.setState({content: value});
+        // this.setState({content: value});
+        this.props.dispatch({
+            type:'CHANGE_CONTENT',
+            content:value
+        })
     }
 
     handleTitle(event){
-        this.setState({title:event.target.value});
+        // this.setState({title:event.target.value});
+        this.props.dispatch({
+            type:'CHANGE_TITLE',
+            title:event.target.value
+        })
     }
 
     handleSubmit(event){
         let postContent = {
-            "content":this.state.content,
-            "title":this.state.title
+            "content":this.props.content,
+            "title":this.props.title
         }
         post("/api/blog/createPost",postContent,(response)=>{
             console.log("Response is:", response);
@@ -44,10 +51,10 @@ class PostEditor extends Component {
         return <div>
             <form className="post-editor-container">
                 <div>
-                <input placeholder="Title Goes Here" id="title" className="post-title" value={this.state.title} onChange={this.handleTitle}></input>
+                <input placeholder="Title Goes Here" id="title" className="post-title" value={this.props.title} onChange={this.handleTitle}></input>
                 </div>
                 <div className="editor-container">
-                    <ReactQuill className="editor" value={this.state.content}
+                    <ReactQuill className="editor" value={this.props.content}
                     onChange={this.handleContent} />
                     <button onClick={this.handleSubmit} className="post-button shadow">Post</button>
                 </div>
@@ -58,7 +65,9 @@ class PostEditor extends Component {
 
 function mapStateToProps(state){
     return {
-        editorVisible:state.editor.editorVisible
+        editorVisible:state.editor.editorVisible,
+        title:state.editor.title,
+        content:state.editor.content
     }
 }
 

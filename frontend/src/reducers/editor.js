@@ -15,6 +15,14 @@ export const editor = (state=initialState, action)=>{
             return Object.assign({},state,{
                 "editorVisible":false
             })
+        case 'CHANGE_TITLE':
+            return Object.assign({},state,{
+                "title":action.title
+            })
+        case 'CHANGE_CONTENT':
+            return Object.assign({},state,{
+                content:action.content
+            })
         default:
             return state
     }
