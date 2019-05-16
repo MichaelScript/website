@@ -1,6 +1,14 @@
 let initialState = {
     posts:[]
 }
+
+function findPostIndex(posts,actionId){
+    for(let i = 0; i < posts.length; i++){
+        if(posts[i].id == actionId){
+            return i;
+        }
+    }
+}
 export const posts = (state=initialState,action)=>{
     switch(action.type){
         case 'ADD_POSTS':{
@@ -10,17 +18,23 @@ export const posts = (state=initialState,action)=>{
             })
         }
         case 'DELETE_POST':{
-            let deleteIndex;
-            for(let i = 0; i < state.posts.length; i++){
-                if(state.posts[i].id = action.id){
-                    deleteIndex = i;
-                }
-            }
+            let deleteIndex = findPostIndex(state.posts,action.id);
             let newPosts = [...state.posts];
             newPosts.splice(deleteIndex,1);
             return Object.assign({},state,{
                 posts:newPosts
             });
+        }
+        case 'EDIT_POST':{
+            let editIndex = findPostIndex(state.posts,action.id);
+            let newPosts = [...state.posts];
+            newPosts[editIndex] = {
+                title: action.title,
+                content: action.content
+            }
+            return Object.assign({},state,{
+                posts:newPosts
+            })
         }
         default:{
             return state;

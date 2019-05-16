@@ -48,9 +48,15 @@ class PostEditor extends Component {
         } else{
             /* Update post */
             alert('Updating post');
-            post("/api/blog/updatePost",postContent,(resposne)=>{
+            post("/api/blog/updatePost",postContent,(response)=>{
                 this.props.dispatch({
                     "type":"HIDE_EDITOR"
+                })
+                this.props.dispatch({
+                    "type":"EDIT_POST",
+                    "title":postContent.title,
+                    "content":postContent.content,
+                    "id":postContent.id
                 })
             })
         }
