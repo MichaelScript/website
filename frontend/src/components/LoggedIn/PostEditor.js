@@ -14,7 +14,6 @@ class PostEditor extends Component {
     componentDidMount(){
     }
     handleContent(value){
-        // this.setState({content: value});
         this.props.dispatch({
             type:'CHANGE_CONTENT',
             content:value
@@ -22,7 +21,6 @@ class PostEditor extends Component {
     }
 
     handleTitle(event){
-        // this.setState({title:event.target.value});
         this.props.dispatch({
             type:'CHANGE_TITLE',
             title:event.target.value
@@ -32,25 +30,37 @@ class PostEditor extends Component {
     handleSubmit(event){
         let postContent = {
             "content":this.props.content,
-            "title":this.props.title
+            "title":this.props.title,
+            "id":this.props.id
         }
-        post("/api/blog/createPost",postContent,(response)=>{
-            console.log("Response is:", response);
-            this.props.dispatch({
-                "type":"HIDE_EDITOR"
+        if(this.props.id === -1){
+            post("/api/blog/createPost",postContent,(response)=>{
+                console.log("Response is:", response);
+                this.props.dispatch({
+                    "type":"HIDE_EDITOR"
+                })
+                postContent['id'] = response.id;
+                this.props.dispatch({
+                    "type":"ADD_POSTS",
+                    "posts":[postContent]
+                })
             })
-            postContent['id'] = response.id;
-            this.props.dispatch({
-                "type":"ADD_POSTS",
-                "posts":[postContent]
+        } else{
+            /* Update post */
+            alert('Updating post');
+            post("/api/blog/updatePost",postContent,(resposne)=>{
+                this.props.dispatch({
+                    "type":"HIDE_EDITOR"
+                })
             })
-        })
+        }
         event.preventDefault();
     }
     render(){
         return <div>
             <form className="post-editor-container">
                 <div>
+                <div className="post-id">{this.props.id}</div>
                 <input placeholder="Title Goes Here" id="title" className="post-title" value={this.props.title} onChange={this.handleTitle}></input>
                 </div>
                 <div className="editor-container">
@@ -67,7 +77,8 @@ function mapStateToProps(state){
     return {
         editorVisible:state.editor.editorVisible,
         title:state.editor.title,
-        content:state.editor.content
+        content:state.editor.content,
+        id: state.editor.id
     }
 }
 

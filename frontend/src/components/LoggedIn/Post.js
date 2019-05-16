@@ -31,6 +31,10 @@ class Post extends Component{
             'type':'CHANGE_CONTENT',
             content:this.props.content
         })
+        this.props.dispatch({
+            'type':'CHANGE_POST_ID',
+            id:this.props.id
+        })
     }
 
     render(){

@@ -13,6 +13,19 @@ class DashboardContainer extends Component{
         this.props.dispatch({
             type:"SHOW_EDITOR"
         })
+        /* A post with an id of -1 is a new post */
+        this.props.dispatch({
+            type:"CHANGE_POST_ID",
+            id:-1
+        })
+        this.props.dispatch({
+            type:"CHANGE_CONTENT",
+            content:''
+        })
+        this.props.dispatch({
+            type:"CHANGE_TITLE",
+            content:''
+        })
     }
 
     hideEditor(){

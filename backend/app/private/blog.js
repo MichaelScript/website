@@ -37,6 +37,27 @@ module.exports = function(app,db){
     }
     router.post('/deletePost',deletePost);
 
+    let updatePost = function(req,res){
+        let id = db.escape(req.body.id);
+        let title = db.escape(req.body.title);
+        let content = db.escape(req.body.content);
+        let query = `
+            UPDATE posts
+            SET title = ${title}, content = ${content}
+            WHERE id = ${id}
+        `
+        db.query(query,function(err,results,fields){
+            if(!err){
+                res.send({'success':true,'id':id});
+            } else{
+                console.log("Error updating post: ", err);
+                res.send({"success":false, "error":"Error updating post"});
+            }
+        })
+    }
+
+    router.post('/updatePost',updatePost);
+
 
 
     return router;
