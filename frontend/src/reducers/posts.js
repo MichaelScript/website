@@ -30,7 +30,8 @@ export const posts = (state=initialState,action)=>{
             let newPosts = [...state.posts];
             newPosts[editIndex] = {
                 title: action.title,
-                content: action.content
+                content: action.content,
+                id: action.id
             }
             return Object.assign({},state,{
                 posts:newPosts

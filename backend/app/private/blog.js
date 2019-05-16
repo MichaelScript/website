@@ -38,6 +38,7 @@ module.exports = function(app,db){
     router.post('/deletePost',deletePost);
 
     let updatePost = function(req,res){
+        console.log("Got update request");
         let id = db.escape(req.body.id);
         let title = db.escape(req.body.title);
         let content = db.escape(req.body.content);
