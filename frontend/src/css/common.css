@@ -22,6 +22,9 @@
     border-radius:4px;
     cursor:pointer;
 }
+.logo a{
+    color: #fff;
+}
 .login-button{
     margin:4px;
     color:white;
@@ -86,7 +89,7 @@ background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, F
 }
 .title-screen:after {
     background: inherit;
-    bottom: 30%;
+    bottom: 40%;
     content: '';
     display: block;
     height: 30%;
@@ -193,7 +196,7 @@ background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, F
 }
 
 .blog-post{
-    width:400px;
+    width:750px;
     max-width:99vw;
     background:white;
     border-radius:4px;

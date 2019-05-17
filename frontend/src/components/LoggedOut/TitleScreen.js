@@ -7,8 +7,8 @@ class TitleScreen extends Component{
             <div className="big-header">Michael Green</div>
             <div className="small-header">Software Engineer</div>
             <div className="buttons">
-                <div className="button shadow">Blog</div>
-                <div className="button shadow">Contact</div>
+                <a href="/blog" className="button shadow">Blog</a>
+                <a href="#" className="button shadow">Contact</a>
             </div>
         </div>
         </div>)
