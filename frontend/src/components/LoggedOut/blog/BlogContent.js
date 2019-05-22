@@ -3,26 +3,7 @@ import BlogPost from './BlogPost';
 import {connect} from 'react-redux';
 import {post} from '../../../util';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
-class BlogPostPage extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            data: {}
-        }
-    }
-    componentDidMount(){
-        post('/api/data/getPost',{"id":this.props.match.params.id},(data)=>{
-            let post = data["posts"][0];
-            this.setState({
-                data: post
-            })
-        })
-    }
-    render(){
-        return <BlogPost {...this.state.data}></BlogPost>
-    }
-}
+import BlogPostPage from './BlogPostPage';
 
 class BlogContent extends Component{
     componentDidMount(){

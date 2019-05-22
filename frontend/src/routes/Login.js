@@ -50,6 +50,7 @@ class Login extends Component{
         return (
             <div className="login-container">
                <div className="login-box shadow">
+                <form>
                     <div>
                         <label htmlFor="email">Email: </label>
                         <input id="email" value={this.state.email} onChange={this.handleEmail}></input>
@@ -59,6 +60,7 @@ class Login extends Component{
                         <input type="password" id="password" value={this.state.password} onChange={this.handlePassword}></input>
                     </div>
                     <button onClick={this.handleSubmit} id="login-button">Login</button>
+                    </form>
                 </div>
             </div>
         )
