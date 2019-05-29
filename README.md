@@ -1,2 +1,2 @@
 # Resume Site
-Here is the code to my website
+This is my resume site and blog. It's a custom built CMS complete with user authentication and a blogging platform. Built using react, redux, node.js, mysql, nginx, docker and kubernetes.
