@@ -7,11 +7,10 @@ class HomeContainer extends Component{
     render(){
         return (<div className="container">
             <TitleScreen></TitleScreen>
-            <div className="card-container">
-                <InfoCard></InfoCard>
+            <div className="card-container shadow">
                 <InfoCard></InfoCard>
             </div>
-            <SectionTwo></SectionTwo>
+            {/* <SectionTwo></SectionTwo> */}
         </div>)
     }
 }

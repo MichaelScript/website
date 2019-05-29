@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import coffee from '../../../images/coffee.jpg';
 class TitleScreen extends Component{
     render(){
         return (<div className="title-screen">

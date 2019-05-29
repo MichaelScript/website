@@ -78,45 +78,14 @@ a{
 
 
 .title-screen{
-    background: #232526;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    width:100%;
-    height:50vh;
+    background: url('../images/coffee.jpg');
+    height:100%;
     display:flex;
     align-items:center;
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.title-screen:after {
-    background: inherit;
-    bottom: 40%;
-    content: '';
-    display: block;
-    height: 30%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    transform: skewY(-10deg);
-    transform-origin: 100%;
-    z-index: -1;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12),
-    0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  }
-
-  @media only screen and (min-width: 600px) {
-    .title-screen:after{
-        bottom:30%;
-        height:100%;
-    }
-  }
-  @media only screen and (max-height: 600px) {
-    .title-screen:after{
-        bottom:10%;
-        height:200%;
-        transform:skewY(-5deg);
-    }
-  }
 
 
   .header{
@@ -127,10 +96,12 @@ background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, F
   .big-header{
       font-size:3em;
       font-weight:700;
+      text-shadow: 3px 3px 3px rgba(53,53,53,0.3);
   }
   .small-header{
       font-size:1.5em;
       color:white;
+      text-shadow: 3px 3px 3px rgba(53,53,53,0.3);
   }
 
   .buttons{
@@ -166,32 +137,41 @@ background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, F
 
 .card-container{
     width:100%;
-    min-height:60vh;
+    min-height:80vh;
     display:flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
     color:rgb(53,53,53);
+    display:flex;
+    align-items:center;
+    background: #8e9eab;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #eef2f3, #8e9eab);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
 }
 
 .info-card{
     background:white;
     border-radius:4px;
-    padding:16px;
-    width:400px;
+    width:700px;
+    max-width:98%;
     max-width:99%;
-    height:300px;
+    min-height:300px;
     margin:16px;
+    font-size:1.25em;
+    padding:16px;
 }
 
-.card-text{
+.info-card p{
+    text-indent:25px;
 }
 
 .section-two{
     height:80vh;
     width:100%;
-    background: rgb(53,53,53);
-    color:white;
+    background: rgb(250,250,250);
+    color:rgba(11, 9, 22, 0.849);
     padding:16px;
 }
 
